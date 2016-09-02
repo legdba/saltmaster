@@ -19,7 +19,7 @@
 FROM ubuntu:16.04
 MAINTAINER legdba <legdba@yahoo.com>
 
-# Install Salt 2016.3 (latest stable version at time of writting)
+# Install Salt 2016.3 (latest stable version at time of writting Sept. 2016)
 RUN apt-get -q -y update && \
     apt-get -q -y upgrade && \
     apt-get -q -y install wget curl software-properties-common && \
