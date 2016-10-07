@@ -30,13 +30,6 @@ RUN apt-get -q -y update && \
     apt-get -q -y install salt-api salt-cloud salt-master salt-minion salt-ssh salt-syndic && \
     rm -rf /var/lib/apt/lists/*
 
-# Define volumes
-# /etc/salt/pki - Salt Minion authentication keys
-# /var/cache/salt - Job and Minion data cache
-# /var/logs/salt - Salt log directory
-# /etc/salt - States, pillars etc
-VOLUME ["/etc/salt/pki", "/var/cache/salt", "/var/logs/salt", "/etc/salt"]
-
 ENV LOG_LEVEL=${LOG_LEVEL:-"error"}
 
 ADD run.sh /usr/local/bin/run.sh
