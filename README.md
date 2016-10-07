@@ -2,7 +2,17 @@
 # Usage
 Run Salt Master, with labelled volumes, except for the data volume (states, pillars) that are in /srv/salt
 ```
-docker run -v salt-master-pki:/etc/salt/pki -v salt-master-cache:/var/salt/cache -v salt-master-logs:/var/logs/salt -v /srv/salt:/etc/salt --rm -it --name saltmaster -p 4505:4505 -p 4506:4506 -e LOG_LEVEL=info legdba/saltmaster:salt-2016.3
+docker run -v salt-master-pki:/var/pki/salt/master:rw -v salt-master-cache:/var/cache/salt/master:rw -v salt-master-logs:/var/log/salt/master:rw -v /etc/salt:/etc/salt:ro -v /srv:/srv:ro --rm -it --name saltmaster -p 4505:4505 -p 4506:4506 -e LOG_LEVEL=info legdba/saltmaster:salt-2016.3
+```
+
+With this type of salt master config:
+```yaml
+#https://docs.saltstack.com/en/latest/ref/configuration/master.html
+master_id: MasterOfMaster
+hash_type: sha256
+pki_dir: /var/pki/salt/master
+cachedir: /var/cache/salt/master
+log_file: /var/log/salt/master
 ```
 
 Then ```docker exec``` salt commands as usual.

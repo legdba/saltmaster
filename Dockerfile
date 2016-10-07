@@ -19,7 +19,7 @@
 FROM ubuntu:16.04
 MAINTAINER legdba <legdba@yahoo.com>
 
-# Install Salt 2016.3 (latest stable version at time of writting Sept. 2016)
+# Install Salt 2016.3 (latest stable version at time of writting)
 RUN apt-get -q -y update && \
     apt-get -q -y upgrade && \
     apt-get -q -y install wget curl software-properties-common && \
@@ -29,6 +29,13 @@ RUN apt-get -q -y update && \
     apt-get -q -y update && \
     apt-get -q -y install salt-api salt-cloud salt-master salt-minion salt-ssh salt-syndic && \
     rm -rf /var/lib/apt/lists/*
+
+# Define volumes
+# /etc/salt/pki - Salt Minion authentication keys
+# /var/cache/salt - Job and Minion data cache
+# /var/logs/salt - Salt log directory
+# /etc/salt - States, pillars etc
+VOLUME ["/etc/salt/pki", "/var/cache/salt", "/var/logs/salt", "/etc/salt"]
 
 ENV LOG_LEVEL=${LOG_LEVEL:-"error"}
 
