@@ -2,7 +2,7 @@
 # Usage
 Run Salt Master, with labelled volumes, except for the data volume (states, pillars) that are in /srv/salt
 ```
-docker run -v salt-master-pki:/etc/salt/pki -v salt-master-cache:/var/salt/cache -v salt-master-logs:/var/logs/salt -v /srv/salt:/etc/salt --rm -it --name saltmaster -p 4505:4505 -p 4506:4506 -e LOG_LEVEL=info saltmaster
+docker run -v salt-master-pki:/etc/salt/pki -v salt-master-cache:/var/salt/cache -v salt-master-logs:/var/logs/salt -v /srv/salt:/etc/salt --rm -it --name saltmaster -p 4505:4505 -p 4506:4506 -e LOG_LEVEL=info legdba/saltmaster:salt-2016.3
 ```
 
 Then ```docker exec``` salt commands as usual.
