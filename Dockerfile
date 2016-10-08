@@ -41,7 +41,7 @@ ADD run.sh /usr/local/bin/run.sh
 # Salt the trying to chown directories for security reasons, which is moot in a dockerized environment.
 # Therefore that chown is removed.
 ADD patch.txt /var/tmp/patch.txt
-RUN patch -p1 < patch.txt && \
+RUN patch -p1 < /var/tmp/patch.txt && \
     chmod +x /usr/local/bin/run.sh && \
     /usr/local/bin/run.sh --version
 
