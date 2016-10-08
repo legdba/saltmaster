@@ -36,6 +36,10 @@ ADD run.sh /usr/local/bin/run.sh
 RUN chmod +x /usr/local/bin/run.sh && \
     /usr/local/bin/run.sh --version
 
-EXPOSE 4505 4506
+RUN /usr/sbin/useradd --create-home --home-dir /usr/local/salt --shell /bin/bash salt && \
+    chown -R salt /usr/local/salt
 USER salt
+WORKDIR /usr/local/salt
+
+EXPOSE 4505 4506
 ENTRYPOINT ["/usr/local/bin/run.sh"]
