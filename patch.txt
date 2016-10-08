@@ -1,0 +1,26 @@
+--- /usr/lib/python2.7/dist-packages/salt/utils/verify.py	2016-10-08 20:34:11.766620482 +0000
++++ /usr/lib/python2.7/dist-packages/salt/utils/verify.py	2016-10-08 20:34:33.846620482 +0000
+@@ -241,9 +241,9 @@
+                     # Allow the directory to be owned by any group root
+                     # belongs to if we say it's ok to be permissive
+                     pass
+-                else:
++                # DISABLED TO RUN IN DOCKER CONTAINER else:
+                     # chown the file for the new user
+-                    os.chown(dir_, uid, gid)
++                    # DISABLED TO RUN IN DOCKER CONTAINER os.chown(dir_, uid, gid)
+             for subdir in [a for a in os.listdir(dir_) if 'jobs' not in a]:
+                 fsubdir = os.path.join(dir_, subdir)
+                 if '{0}jobs'.format(os.path.sep) in fsubdir:
+@@ -260,9 +260,9 @@
+                         if fmode.st_uid != uid or fmode.st_gid != gid:
+                             if permissive and fmode.st_gid in groups:
+                                 pass
+-                            else:
++                            # DISABLED TO RUN IN DOCKER CONTAINER else:
+                                 # chown the file for the new user
+-                                os.chown(path, uid, gid)
++                                # DISABLED TO RUN IN DOCKER CONTAINER os.chown(path, uid, gid)
+                     for name in dirs:
+                         path = os.path.join(root, name)
+                         fmode = os.stat(path)

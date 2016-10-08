@@ -33,13 +33,17 @@ RUN apt-get -q -y update && \
 ENV LOG_LEVEL=${LOG_LEVEL:-"error"}
 
 ADD run.sh /usr/local/bin/run.sh
-RUN chmod +x /usr/local/bin/run.sh && \
+# Add patch file that changes salt environment verification to disable chowning /etc/salt and /srv when run as root.
+# This is required to run it in a clean way within a docker container.
+# The "clean" way involves mounting drives for config (/etc/salt and /srv) in read only.
+# As the docker run -v option mount as root, salt has to run as root.
+# Running salt as root, salt will try to chown those mounted directory and fail as they are read-only.
+# Salt the trying to chown directories for security reasons, which is moot in a dockerized environment.
+# Therefore that chown is removed.
+ADD patch.txt /var/tmp/patch.txt
+RUN patch -p1 < patch.txt && \
+    chmod +x /usr/local/bin/run.sh && \
     /usr/local/bin/run.sh --version
-
-RUN /usr/sbin/useradd --create-home --home-dir /usr/local/salt --shell /bin/bash salt && \
-    chown -R salt /usr/local/salt
-USER salt
-WORKDIR /usr/local/salt
 
 EXPOSE 4505 4506
 ENTRYPOINT ["/usr/local/bin/run.sh"]
