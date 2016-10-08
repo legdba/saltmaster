@@ -37,4 +37,5 @@ RUN chmod +x /usr/local/bin/run.sh && \
     /usr/local/bin/run.sh --version
 
 EXPOSE 4505 4506
+USER salt
 ENTRYPOINT ["/usr/local/bin/run.sh"]
